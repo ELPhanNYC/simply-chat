@@ -1,0 +1,15 @@
+{
+  "name": "simply-chat",
+  "version": "1.0.0",
+  "description": "--- A simple chat application used as a basis for understanding Express.js and Angular interactions. In fact, this project is the test bed for another one of my projects — Pomo Pengy.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
