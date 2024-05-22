@@ -1,9 +1,9 @@
 <div class = "user-input-container">
     <form>
-        <input placeholder="Enter a temporary alias here" type="text" id="alias" name="alias">
+        <input placeholder="Enter a temporary alias here" type="text" id="alias" name="alias" [(ngModel)]="alias">
         <br>
-        <textarea placeholder="Enter a message here" type="text" id="chat-message" name="chat-message" rows="10" cols="50"></textarea>
+        <textarea placeholder="Enter a message here" type="text" id="chat-message" name="chat-message" rows="10" cols="50"  [(ngModel)]="message"></textarea>
         <br>
-        <input type="submit">
+        <input type="submit" (click)="postToDB()">
     </form>    
 </div>

@@ -10,15 +10,32 @@ import { ApiService } from '../api.service';
 })
 export class ChatMessagesComponent  implements OnInit { 
 
-  message: any;
+  messages: any = [];
+  interval:any;
 
-  readonly ApiUrl = "http://localhost:3000/api/message";
+  constructor(private apiService: ApiService){
+    
+  }
 
-  constructor(private apiService: ApiService) { }; 
+  ngOnInit() {
+    // Fetch messages initially
+    this.fetchMessages();
 
-  ngOnInit() { 
-      this.apiService.getMessage().subscribe(data => { 
-          this.message = data; 
-      }); 
-  } 
+    // Set interval to fetch messages every 10 seconds
+    // this.interval = setInterval(() => {
+    //   this.fetchMessages();
+    // }, 30000); // 10 seconds
+  }
+
+  ngOnDestroy() {
+    // Clear the interval when component is destroyed
+    clearInterval(this.interval);
+  }
+
+  fetchMessages() {
+    this.apiService.getMessage()
+      .subscribe(data => {
+        this.messages = data;
+      });
+  }
 }
