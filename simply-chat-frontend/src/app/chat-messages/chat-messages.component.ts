@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-chat-messages',
@@ -13,10 +14,10 @@ export class ChatMessagesComponent  implements OnInit {
 
   readonly ApiUrl = "http://localhost:3000/api/message";
 
-  constructor(private http: HttpClient) { }; 
+  constructor(private apiService: ApiService) { }; 
 
   ngOnInit() { 
-      this.http.get(this.ApiUrl).subscribe(data => { 
+      this.apiService.getMessage().subscribe(data => { 
           this.message = data; 
       }); 
   } 
