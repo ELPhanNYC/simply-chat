@@ -22,9 +22,9 @@ export class ChatMessagesComponent  implements OnInit {
     this.fetchMessages();
 
     // Set interval to fetch messages every 10 seconds
-    // this.interval = setInterval(() => {
-    //   this.fetchMessages();
-    // }, 30000); // 10 seconds
+    this.interval = setInterval(() => {
+      this.fetchMessages();
+    }, 3000); // 10 seconds
   }
 
   ngOnDestroy() {
