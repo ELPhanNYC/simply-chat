@@ -1,5 +1,5 @@
 <h2>Chat Messages:</h2>
-<div class = "message-container">
+<div #messageContainer class = "message-container">
     <div class = "message-template" *ngFor="let message of messages">
         <p> 
             <strong>{{ message.alias }}:</strong> {{ message.message }}

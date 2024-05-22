@@ -1,5 +1,9 @@
 .message-container {
-    max-height: 25rem;
-    width: 27rem;
-    overflow-y: scroll;
+    max-height: 23.5rem;
+    width: 25.5rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border: inset;
 }

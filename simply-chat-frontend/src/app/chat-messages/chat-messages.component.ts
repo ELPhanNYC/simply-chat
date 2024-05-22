@@ -1,5 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -8,34 +7,41 @@ import { ApiService } from '../api.service';
   styleUrls: ['./chat-messages.component.scss'],
   providers: []
 })
-export class ChatMessagesComponent  implements OnInit { 
+export class ChatMessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   messages: any = [];
-  interval:any;
+  interval: any;
 
-  constructor(private apiService: ApiService){
-    
-  }
+  @ViewChild('messageContainer') private messageContainer!: ElementRef;
+
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    // Fetch messages initially
     this.fetchMessages();
-
-    // Set interval to fetch messages every 10 seconds
     this.interval = setInterval(() => {
       this.fetchMessages();
-    }, 3000); // 10 seconds
+    }, 3000); // 3 seconds
   }
 
   ngOnDestroy() {
-    // Clear the interval when component is destroyed
     clearInterval(this.interval);
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
   fetchMessages() {
-    this.apiService.getMessage()
-      .subscribe(data => {
-        this.messages = data;
-      });
+    this.apiService.getMessage().subscribe(data => {
+      this.messages = data;
+    });
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error('Scroll error:', err);
+    }
   }
 }
