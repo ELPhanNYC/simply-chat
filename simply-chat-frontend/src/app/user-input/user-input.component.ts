@@ -13,6 +13,9 @@ export class UserInputComponent {
   constructor(private apiService: ApiService) {}
 
   postToDB() {
+    if(this.alias == ''){
+      this.alias = "anonymous";
+    }
     const payload = {
       alias: this.alias,
       message: this.message
@@ -25,5 +28,6 @@ export class UserInputComponent {
       }, error => {
         console.error('Error:', error);
       });
+      this.alias = '';
   }
 }
