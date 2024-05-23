@@ -9,9 +9,9 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getMessage() {
-    return this.http.get('http://localhost:3000/api/getmessage');
+    return this.http.get('http://localhost:8080/api/getmessage');
   }
   postMessage(data: { alias: string; message: string }) {
-    return this.http.post('http://localhost:3000/api/post', data);
+    return this.http.post('http://localhost:8080/api/post', data);
   }
 }
