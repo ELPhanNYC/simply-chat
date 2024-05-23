@@ -28,6 +28,8 @@ export class UserInputComponent {
       }, error => {
         console.error('Error:', error);
       });
-      this.alias = '';
+      if(this.alias == 'anonymous'){
+        this.alias = '';
+      }
   }
 }

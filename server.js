@@ -1,17 +1,14 @@
-const express = require('express'); 
+const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
-const app = express(); 
+const app = express();
 
 // handling MongoDB connection
-mongoose.connect('mongodb://localhost:27017/chatmesssages', { useNewUrlParser: true, useUnifiedTopology: true });
-const database = mongoose.connection;
-database.on('error', (error) => {
-    console.log(error);
-});
+mongoose.connect('mongodb://localhost:27017/chat_messages');
 
-database.once('connected', () => {
-    console.log('Database Connected');
-});
+const database = mongoose.connection;
+database.on('error', (error) => console.error('Database connection error:', error));
+database.once('open', () => console.log('Database connected'));
 
 // Define the schema and model
 const dataSchema = new mongoose.Schema({
@@ -27,28 +24,33 @@ const dataSchema = new mongoose.Schema({
 
 const Data = mongoose.model('chat', dataSchema);
 
-// Use express.json() to parse JSON bodies
 app.use(express.json());
 
 // handling CORS 
 app.use((req, res, next) => { 
     res.header("Access-Control-Allow-Origin", "http://localhost:4200"); 
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); 
-    next(); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
 }); 
 
-// route for handling requests from the Angular client 
+// Serve static files from the Angular app
+app.use(express.static(path.join(__dirname, 'dist/simply-chat-frontend')));
+
+// API routes
 app.get('/api/getmessage', async (req, res) => { 
-    try{
+    try {
         const data = await Data.find();
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({message: error.message});
     }
 }); 
 
-// Post a message
 app.post('/api/post', async (req, res) => {
     const data = new Data({
         alias: req.body.alias,
@@ -63,7 +65,19 @@ app.post('/api/post', async (req, res) => {
     }
 });
 
+// Catch all other routes and return the index file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/simply-chat-frontend/index.html'));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
 // Start the server
-app.listen(3000, () => { 
-    console.log('Server listening on port 3000'); 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
