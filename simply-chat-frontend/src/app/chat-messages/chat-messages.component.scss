@@ -4,6 +4,34 @@
     overflow-y: auto;
     scroll-behavior: smooth;
     margin-bottom: 1rem;
+    margin-left: 1rem;
     padding-left: 1rem;
+    padding-right: 1rem;
     border: inset;
+}
+
+@media (max-width: 768px) {
+    .message-template {
+        font-size: 1em;
+    }
+
+    .message-container {
+        height: auto;
+        min-height: 15rem;
+        max-height: 20rem;
+        width: calc(92% - 2rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .message-template {
+        font-size: 0.9em;
+    }
+    
+    .message-container {
+        height: auto;
+        min-height: 10rem;
+        max-height: 15rem;
+        width: calc(92% - 2rem);
+    }
 }

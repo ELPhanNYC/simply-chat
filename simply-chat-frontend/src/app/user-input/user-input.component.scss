@@ -1,13 +1,35 @@
-input {
-    margin-bottom: 1rem;
-}
-
-textarea {
-    margin-bottom: 1rem;
+input, textarea {
+    width: calc(100% - 2rem);
+    margin: 0.5rem 1rem;
 }
 
 .user-input-container {
     position: absolute;
     bottom: 0;
     margin-bottom: 1rem;
+}
+@media (max-width: 768px) {
+    input, textarea {
+        width: calc(100% - 2rem);
+        font-size: 1em;
+    }
+
+    .user-input-container {
+        padding: 0.5rem;
+        padding-bottom: 1rem;
+        position: relative;
+    }
+}
+
+@media (max-width: 480px) {
+    input, textarea {
+        width: calc(100% - 2rem);
+        font-size: 0.9em;
+    }
+
+    .user-input-container {
+        padding: 0.5rem;
+        padding-bottom: 1rem;
+        position: relative;
+    }
 }
