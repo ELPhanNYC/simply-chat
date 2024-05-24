@@ -9,9 +9,9 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getMessage() {
-    return this.http.get('https://king-prawn-app-qzfdx.ondigitalocean.app/api/getmessage');
+    return this.http.get('https://whale-app-vwzos.ondigitalocean.app/api/getmessage');
   }
   postMessage(data: { alias: string; message: string }) {
-    return this.http.post('https://king-prawn-app-qzfdx.ondigitalocean.app/api/post', data);
+    return this.http.post('https://whale-app-vwzos.ondigitalocean.app/api/post', data);
   }
 }
